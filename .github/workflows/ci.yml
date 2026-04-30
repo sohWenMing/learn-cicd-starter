@@ -25,5 +25,5 @@ jobs:
 
       # just for an example here, this step is to make sure that the process doesn't exit
       # with code 0
-      - name: Check version
-        run: go version
+      - name: unit tests
+        run: go test ./...
