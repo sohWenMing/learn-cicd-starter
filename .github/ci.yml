@@ -1,0 +1,27 @@
+# first line of the workflow specifies the workflow
+name: ci
+
+# this specifies: this workfow should only happen on pull requests, where the destination
+# is the main branch
+on:
+  pull_request:
+    branches: [main]
+
+# a workflow can have multiple jobs, each of which can hve multiple steps
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      # note here that this is  a **list** of steps
+      # the "-" is used to show the "bullet" of each step
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.0"
+
+      - name: Force Failure
+        run: (exit 1)
