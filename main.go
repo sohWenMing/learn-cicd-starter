@@ -29,6 +29,9 @@ func main() {
 	if err != nil {
 		log.Printf("warning: assuming default configuration. .env unreadable: %v", err)
 	}
+	// here, it seems that the code handles, if it can't find the port
+	// note that even if there are conflicting ports, godotenv.Load does not
+	// // override existing environment variables - only gets new ones
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -95,4 +98,8 @@ func main() {
 
 	log.Printf("Serving on port: %s\n", port)
 	log.Fatal(srv.ListenAndServe())
+}
+
+func unused() {
+	// this function is to test staticcheck
 }
