@@ -16,5 +16,19 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: "1.26.0"
+
       - name: Build
         run: ./scripts/buildprod.sh
+
+      - name: Google-Auth
+        id: "auth"
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+        # this works because we've already setup the repository secret in the repo
+
+      - name: Set up Cloud SDK
+        uses: "google-github-actions/setup-gcloud@v3"
+
+      - name: Deploy to GCP
+        run: gcloud builds submit --tag us-central1-docker.pkg.dev/notely-494805/notely-ar-repo/notely:gcp-build .
